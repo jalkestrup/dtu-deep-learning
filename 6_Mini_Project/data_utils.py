@@ -97,6 +97,8 @@ class load_data():
             image = pad2square(image)
             image = resize(image, output_shape=image_shape, mode='reflect', anti_aliasing=True)
             image = np.expand_dims(image, axis=2)
+            image = np.transpose(image, (2, 0, 1))    # Transpose to (channels, height, width) -> (1, H, W) to make img fit with Torch default order
+            
             sample['image'] = image   
             data[row['id']] = sample
             if i % 100 == 0:
